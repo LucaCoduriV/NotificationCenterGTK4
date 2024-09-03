@@ -3,12 +3,13 @@ name = "notioxus"
 version = "0.1.0"
 authors = ["Luca"]
 edition = "2021"
+default-run = "notioxus"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 
-dioxus = { version = "0.5", features = ["desktop", "router"] }
+dioxus = { git = "https://github.com/LucaCoduriV/dioxus.git", branch = "from_gtk_window", features = ["desktop", "router"] }
 
 # Debug
 dioxus-logger = "0.5.1"
