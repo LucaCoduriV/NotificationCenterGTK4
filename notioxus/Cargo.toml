@@ -9,7 +9,7 @@ default-run = "notioxus"
 
 [dependencies]
 
-dioxus = { git = "https://github.com/LucaCoduriV/dioxus.git", branch = "from_gtk_window", features = ["desktop", "router"] }
+dioxus = { git = "https://github.com/LucaCoduriV/dioxus.git", branch = "asset_into_main", features = ["desktop", "router"] }
 
 # Debug
 dioxus-logger = "0.5.1"
