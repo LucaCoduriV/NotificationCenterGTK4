@@ -1,0 +1,29 @@
+[package]
+name = "notioxus_daemon"
+version = "1.0.0"
+edition = "2021"
+
+[lib]
+crate-type = ["lib", "staticlib", "cdylib"]
+
+[dependencies]
+toml = { workspace = true }
+once_cell = { workspace = true }
+dbus = { workspace = true }
+dbus-crossroads = { workspace = true }
+dbus-tokio = { workspace = true }
+futures = { workspace = true }
+tokio = { workspace = true, features = ["full"] }
+chrono = { workspace = true }
+freedesktop-icons = { workspace = true }
+freedesktop-desktop-entry = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+surrealdb = { workspace = true, features = ["kv-rocksdb", "kv-mem"] }
+serde = { workspace = true, features = ["derive"] }
+xdg = { workspace = true }
+tracing = { workspace = true }
+cacache = { workspace = true }
+nanoid = { workspace = true }
+const_format = { workspace = true }
+notify = { workspace = true }
