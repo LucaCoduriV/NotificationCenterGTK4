@@ -10,6 +10,7 @@ default-run = "notioxus"
 [dependencies]
 
 dioxus = { git = "https://github.com/LucaCoduriV/dioxus.git", branch = "asset_into_main", features = ["desktop", "router"] }
+gtk-layer-shell = "0.8"
 
 # Debug
 dioxus-logger = "0.5.1"

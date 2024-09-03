@@ -1,7 +1,22 @@
 #![allow(non_snake_case)]
 
-use dioxus::prelude::*;
+use std::rc::Rc;
+
+use dioxus::{
+    desktop::{
+        gtk_window::gtk::{
+            self,
+            prelude::{ContainerExt, GtkWindowExt, WidgetExt},
+        },
+        tao::{
+            self,
+            platform::unix::{EventLoopWindowTargetExtUnix, WindowExtUnix},
+        },
+    },
+    prelude::*,
+};
 use dioxus_logger::tracing::{info, Level};
+use gtk_layer_shell::LayerShell;
 
 #[derive(Clone, Routable, Debug, PartialEq)]
 enum Route {
@@ -16,7 +31,32 @@ fn main() {
     dioxus_logger::init(Level::INFO).expect("failed to init logger");
     info!("starting app");
 
-    dioxus::launch(App);
+    let launch_builder = LaunchBuilder::desktop_from_gtk_window(|event_loop| {
+        let gtk_window = gtk::ApplicationWindow::new(event_loop.gtk_app());
+        gtk_window.set_app_paintable(true);
+        gtk_window.set_decorated(false);
+        gtk_window.stick();
+        gtk_window.set_title("This is a wongus");
+        let default_vbox = gtk::Box::new(gtk::Orientation::Vertical, 0);
+        gtk_window.add(&default_vbox);
+
+        gtk_window.init_layer_shell();
+        gtk_window.set_layer(gtk_layer_shell::Layer::Top);
+        gtk_window.auto_exclusive_zone_enable();
+        gtk_window.set_anchor(gtk_layer_shell::Edge::Top, true);
+        gtk_window.set_anchor(gtk_layer_shell::Edge::Right, true);
+        gtk_window.set_anchor(gtk_layer_shell::Edge::Bottom, false);
+        gtk_window.set_anchor(gtk_layer_shell::Edge::Left, false);
+        gtk_window.set_width_request(400);
+        gtk_window.set_height_request(400);
+        gtk_window.show_all();
+        let window =
+            tao::window::Window::new_from_gtk_window(event_loop, gtk_window.clone()).unwrap();
+
+        (window, Rc::new(default_vbox))
+    });
+
+    launch_builder.launch(App);
 }
 
 #[component]
