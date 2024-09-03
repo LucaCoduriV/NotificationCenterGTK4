@@ -22,6 +22,7 @@ fn main() {
 #[component]
 fn App() -> Element {
     rsx! {
+        link { rel: "stylesheet", href: "assets/main.css"}
         Router::<Route> {}
     }
 }
